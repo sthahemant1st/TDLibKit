@@ -21,12 +21,20 @@ let package = Package(
             targets: ["TDLibKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Swiftgram/TDLibFramework", .exact("1.8.53-bdec6af5")),
     ],
     targets: [
         .target(
             name: "TDLibKit",
-            dependencies: ["TDLibFramework"]
+            
+            linkerSettings: [
+                // Link against the TDLib JSON library
+                .unsafeFlags([
+                    "-Ltdlib/lib",
+                    "-ltdjson",
+                    // Add runtime library search path so macOS can find libtdjson.dylib
+                    "-Xlinker", "-rpath", "-Xlinker", "tdlib/lib"
+                ])
+            ]
         ),
         .testTarget(
             name: "TDLibKitTests",
