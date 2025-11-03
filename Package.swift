@@ -4,7 +4,16 @@
 
 import PackageDescription
 
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+let dependencies: [Package.Dependency] = [
+    .package(url: "https://github.com/Swiftgram/TDLibFramework", .exact("1.8.53-bdec6af5")),
 
+]
+let tdLibDependency: Target.Dependency = .product(name: "TDLibFramework", package: "TDLibFramework")
+#else
+let dependencies: [Package.Dependency] = []
+let tdLibDependency: Target.Dependency = "CTDLib"
+#endif
 
 let package = Package(
     name: "TDLibKit",
@@ -20,21 +29,20 @@ let package = Package(
             name: "TDLibKit",
             targets: ["TDLibKit"]),
     ],
-    dependencies: [
-    ],
+    dependencies: dependencies,
     targets: [
+        .systemLibrary(
+            name: "CTDLib",
+            pkgConfig: "tdjson",
+            providers: [
+                // Note: TDLib must be built from source on most Linux systems
+                // See: https://github.com/tdlib/td#building
+                .apt(["libtd-dev"])
+            ]
+        ),
         .target(
             name: "TDLibKit",
-            
-            linkerSettings: [
-                // Link against the TDLib JSON library
-                .unsafeFlags([
-                    "-Ltdlib/lib",
-                    "-ltdjson",
-                    // Add runtime library search path so macOS can find libtdjson.dylib
-                    "-Xlinker", "-rpath", "-Xlinker", "tdlib/lib"
-                ])
-            ]
+            dependencies: [tdLibDependency]
         ),
         .testTarget(
             name: "TDLibKitTests",

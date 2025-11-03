@@ -6,8 +6,9 @@
 //
 
 import Foundation
-//import TDLibFramework
-
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+import TDLibFramework
+#else
 // Bridge to TDLib C functions from libtdjson
 @_silgen_name("td_create_client_id")
 func td_create_client_id() -> Int32
@@ -20,6 +21,7 @@ func td_receive(_ timeout: Double) -> UnsafePointer<CChar>?
 
 @_silgen_name("td_execute")
 func td_execute(_ request: UnsafePointer<CChar>) -> UnsafePointer<CChar>?
+#endif
 
 public class TDLibClient: TDLibApi, Equatable {
     public let id: Int32
