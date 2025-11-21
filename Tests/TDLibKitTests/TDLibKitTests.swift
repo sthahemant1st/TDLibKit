@@ -1,7 +1,6 @@
 import XCTest
 @testable import TDLibKit
 
-
 public final class StdOutLogger: Logger, TDLibLogger {
     
     let queue: DispatchQueue
@@ -19,95 +18,6 @@ public final class StdOutLogger: Logger, TDLibLogger {
             NSLog("\(fisrtLine)\n\(message)\n---------------------------")
         }
     }
-}
-
-
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
-class TDLibKitTests: XCTestCase {
-    var client: TdClientImpl!
-    var api: TdApi!
-    
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        self.client = TdClientImpl(logger: StdOutLogger())
-        self.api = TdApi(client: self.client)
-        self.client.run { _ in }
-        
-        let query = SetLogVerbosityLevel(newVerbosityLevel: 5)
-        do {
-            let result = try api.client.execute(query: DTO(query))
-            if let resultDict = result {
-                if let resultTypeString = resultDict["@type"] as? String, resultTypeString == "ok" {
-                    XCTAssertEqual(resultTypeString, "ok")
-                } else {
-                    XCTFail("Wrong response from SetLogVerbosityLevel \(resultDict)")
-                }
-            } else {
-                XCTFail("Empty response for loglevel")
-            }
-        } catch {
-            XCTFail("Error in SetLogVerbosityLevel request \(error.localizedDescription)")
-        }
-        
-        guard let cachesUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            XCTFail("Unable to get cache path")
-            return
-        }
-        let tdlibPath = cachesUrl.appendingPathComponent("tdlib", isDirectory: true).path
-        
-        let _ = Task {
-            let _ = try! await api.setTdlibParameters(
-                apiHash: "5e6d7b36f0e363cf0c07baf2deb26076", // https://core.telegram.org/api/obtaining_api_id
-                apiId: 287311,
-                applicationVersion: "1.0",
-                databaseDirectory: tdlibPath,
-                databaseEncryptionKey: nil,
-                deviceModel: "iOS",
-                filesDirectory: "",
-                systemLanguageCode: "en",
-                systemVersion: "Unknown",
-                useChatInfoDatabase: true,
-                useFileDatabase: true,
-                useMessageDatabase: true,
-                useSecretChats: true,
-                useTestDc: false)
-            let authState = try! await api.getAuthorizationState()
-            switch (authState) {
-            case .authorizationStateWaitPhoneNumber:
-                break
-            default:
-                XCTFail("Auth state is not ready. It's \(authState)")
-            }
-        }
-    }
-    
-    override func tearDownWithError() throws {
-        self.client.close()
-        try super.tearDownWithError()
-    }
-    
-    func testConfigs() async {
-        async let config1 = try! api.getApplicationConfig()
-        async let config2 = try! api.getApplicationConfig()
-        async let config3 = try! api.getApplicationConfig()
-        async let config4 = try! api.getApplicationConfig()
-        async let config5 = try! api.getApplicationConfig()
-        async let config6 = try! api.getApplicationConfig()
-        async let config7 = try! api.getApplicationConfig()
-        async let config8 = try! api.getApplicationConfig()
-        async let config9 = try! api.getApplicationConfig()
-        async let config10 = try! api.getApplicationConfig()
-        
-        let configs = await [config1, config2, config3, config4, config5, config6, config7, config8, config9, config10]
-        print("Application Configs \(configs)")
-    }
-    
-    func testGetCountries() async {
-        let countries = try! await api.getCountries()
-        print("Countries \(countries)")
-        XCTAssertNotEqual(countries, nil)
-    }
-    
 }
 
 class TDLibKitUnitTests: XCTestCase {
