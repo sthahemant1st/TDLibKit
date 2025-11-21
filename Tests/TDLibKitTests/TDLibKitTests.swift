@@ -23,8 +23,8 @@ public final class StdOutLogger: Logger, TDLibLogger {
 class TDLibKitUnitTests: XCTestCase {
     
     func testEquatableStructs() {
-        let struct1 = AddContact(contact: Contact(firstName: "John", lastName: "Appleseed", phoneNumber: "+10000000000", userId: 123456789, vcard: "empty"), sharePhoneNumber: true)
-        let struct2 = AddContact(contact: Contact(firstName: "Pavel", lastName: "Droider", phoneNumber: "+90000000000", userId: 777777777, vcard: "empty"), sharePhoneNumber: false)
+        let struct1 = AddContact(contact: ImportedContact(firstName: "John", lastName: "Appleseed", note: nil, phoneNumber: "+10000000000"), sharePhoneNumber: true, userId: 123456789)
+        let struct2 = AddContact(contact: ImportedContact(firstName: "Pavel", lastName: "Droider", note: nil, phoneNumber: "+90000000000"), sharePhoneNumber: false, userId: 777777777)
         XCTAssertNotEqual(struct1, struct2)
         
         XCTAssertEqual(struct1, struct1)
