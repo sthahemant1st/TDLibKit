@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
@@ -76,11 +76,17 @@ public indirect enum StarTransactionType: Codable, Equatable, Hashable {
     /// The transaction is a transfer of an upgraded gift; for regular users only
     case starTransactionTypeGiftTransfer(StarTransactionTypeGiftTransfer)
 
+    /// The transaction is a drop of original details of an upgraded gift; for regular users only
+    case starTransactionTypeGiftOriginalDetailsDrop(StarTransactionTypeGiftOriginalDetailsDrop)
+
     /// The transaction is a sale of a received gift; for regular users and channel chats only
     case starTransactionTypeGiftSale(StarTransactionTypeGiftSale)
 
     /// The transaction is an upgrade of a gift; for regular users only
     case starTransactionTypeGiftUpgrade(StarTransactionTypeGiftUpgrade)
+
+    /// The transaction is a purchase of an upgrade of a gift owned by another user or channel; for regular users only
+    case starTransactionTypeGiftUpgradePurchase(StarTransactionTypeGiftUpgradePurchase)
 
     /// The transaction is a purchase of an upgraded gift for some user or channel; for regular users only
     case starTransactionTypeUpgradedGiftPurchase(StarTransactionTypeUpgradedGiftPurchase)
@@ -147,8 +153,10 @@ public indirect enum StarTransactionType: Codable, Equatable, Hashable {
         case starTransactionTypeChannelSubscriptionSale
         case starTransactionTypeGiftPurchase
         case starTransactionTypeGiftTransfer
+        case starTransactionTypeGiftOriginalDetailsDrop
         case starTransactionTypeGiftSale
         case starTransactionTypeGiftUpgrade
+        case starTransactionTypeGiftUpgradePurchase
         case starTransactionTypeUpgradedGiftPurchase
         case starTransactionTypeUpgradedGiftSale
         case starTransactionTypeChannelPaidReactionSend
@@ -227,12 +235,18 @@ public indirect enum StarTransactionType: Codable, Equatable, Hashable {
         case .starTransactionTypeGiftTransfer:
             let value = try StarTransactionTypeGiftTransfer(from: decoder)
             self = .starTransactionTypeGiftTransfer(value)
+        case .starTransactionTypeGiftOriginalDetailsDrop:
+            let value = try StarTransactionTypeGiftOriginalDetailsDrop(from: decoder)
+            self = .starTransactionTypeGiftOriginalDetailsDrop(value)
         case .starTransactionTypeGiftSale:
             let value = try StarTransactionTypeGiftSale(from: decoder)
             self = .starTransactionTypeGiftSale(value)
         case .starTransactionTypeGiftUpgrade:
             let value = try StarTransactionTypeGiftUpgrade(from: decoder)
             self = .starTransactionTypeGiftUpgrade(value)
+        case .starTransactionTypeGiftUpgradePurchase:
+            let value = try StarTransactionTypeGiftUpgradePurchase(from: decoder)
+            self = .starTransactionTypeGiftUpgradePurchase(value)
         case .starTransactionTypeUpgradedGiftPurchase:
             let value = try StarTransactionTypeUpgradedGiftPurchase(from: decoder)
             self = .starTransactionTypeUpgradedGiftPurchase(value)
@@ -337,11 +351,17 @@ public indirect enum StarTransactionType: Codable, Equatable, Hashable {
         case .starTransactionTypeGiftTransfer(let value):
             try container.encode(Kind.starTransactionTypeGiftTransfer, forKey: .type)
             try value.encode(to: encoder)
+        case .starTransactionTypeGiftOriginalDetailsDrop(let value):
+            try container.encode(Kind.starTransactionTypeGiftOriginalDetailsDrop, forKey: .type)
+            try value.encode(to: encoder)
         case .starTransactionTypeGiftSale(let value):
             try container.encode(Kind.starTransactionTypeGiftSale, forKey: .type)
             try value.encode(to: encoder)
         case .starTransactionTypeGiftUpgrade(let value):
             try container.encode(Kind.starTransactionTypeGiftUpgrade, forKey: .type)
+            try value.encode(to: encoder)
+        case .starTransactionTypeGiftUpgradePurchase(let value):
+            try container.encode(Kind.starTransactionTypeGiftUpgradePurchase, forKey: .type)
             try value.encode(to: encoder)
         case .starTransactionTypeUpgradedGiftPurchase(let value):
             try container.encode(Kind.starTransactionTypeUpgradedGiftPurchase, forKey: .type)
@@ -727,6 +747,25 @@ public struct StarTransactionTypeGiftTransfer: Codable, Equatable, Hashable {
     }
 }
 
+/// The transaction is a drop of original details of an upgraded gift; for regular users only
+public struct StarTransactionTypeGiftOriginalDetailsDrop: Codable, Equatable, Hashable {
+
+    /// The gift
+    public let gift: UpgradedGift
+
+    /// Identifier of the user or the channel that owns the gift
+    public let ownerId: MessageSender
+
+
+    public init(
+        gift: UpgradedGift,
+        ownerId: MessageSender
+    ) {
+        self.gift = gift
+        self.ownerId = ownerId
+    }
+}
+
 /// The transaction is a sale of a received gift; for regular users and channel chats only
 public struct StarTransactionTypeGiftSale: Codable, Equatable, Hashable {
 
@@ -762,6 +801,25 @@ public struct StarTransactionTypeGiftUpgrade: Codable, Equatable, Hashable {
     ) {
         self.gift = gift
         self.userId = userId
+    }
+}
+
+/// The transaction is a purchase of an upgrade of a gift owned by another user or channel; for regular users only
+public struct StarTransactionTypeGiftUpgradePurchase: Codable, Equatable, Hashable {
+
+    /// The gift
+    public let gift: Gift
+
+    /// Owner of the upgraded gift
+    public let ownerId: MessageSender
+
+
+    public init(
+        gift: Gift,
+        ownerId: MessageSender
+    ) {
+        self.gift = gift
+        self.ownerId = ownerId
     }
 }
 

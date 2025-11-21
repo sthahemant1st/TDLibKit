@@ -6,8 +6,7 @@ import PackageDescription
 
 #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
 let dependencies: [Package.Dependency] = [
-    .package(url: "https://github.com/Swiftgram/TDLibFramework", .exact("1.8.53-bdec6af5")),
-
+    .package(url: "https://github.com/Swiftgram/TDLibFramework", .exact("1.8.56-dd1b761f")),
 ]
 let tdLibDependency: Target.Dependency = .product(name: "TDLibFramework", package: "TDLibFramework")
 #else

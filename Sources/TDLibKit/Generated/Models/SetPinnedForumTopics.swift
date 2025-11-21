@@ -3,29 +3,29 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
 
 
-/// Changes the order of pinned forum topics; requires can_manage_topics administrator right in the supergroup
+/// Changes the order of pinned topics in a forum supergroup chat or a chat with a bot with topics; requires can_manage_topics administrator right in the supergroup
 public struct SetPinnedForumTopics: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64?
 
-    /// The new list of pinned forum topics
-    public let messageThreadIds: [Int64]?
+    /// The new list of identifiers of the pinned forum topics
+    public let forumTopicIds: [Int]?
 
 
     public init(
         chatId: Int64?,
-        messageThreadIds: [Int64]?
+        forumTopicIds: [Int]?
     ) {
         self.chatId = chatId
-        self.messageThreadIds = messageThreadIds
+        self.forumTopicIds = forumTopicIds
     }
 }
 

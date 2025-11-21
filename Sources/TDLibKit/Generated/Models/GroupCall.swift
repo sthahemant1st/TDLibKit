@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
@@ -18,6 +18,12 @@ public struct GroupCall: Codable, Equatable, Hashable, Identifiable {
 
     /// True, if the current user can broadcast video or share screen
     public let canEnableVideo: Bool
+
+    /// True, if users can send messages to the group call
+    public let canSendMessages: Bool
+
+    /// True, if the current user can enable or disable sending messages in the group call
+    public let canToggleCanSendMessages: Bool
 
     /// True, if the current user can enable or disable mute_new_participants setting; for video chats only
     public let canToggleMuteNewParticipants: Bool
@@ -89,6 +95,8 @@ public struct GroupCall: Codable, Equatable, Hashable, Identifiable {
     public init(
         canBeManaged: Bool,
         canEnableVideo: Bool,
+        canSendMessages: Bool,
+        canToggleCanSendMessages: Bool,
         canToggleMuteNewParticipants: Bool,
         duration: Int,
         enabledStartNotification: Bool,
@@ -114,6 +122,8 @@ public struct GroupCall: Codable, Equatable, Hashable, Identifiable {
     ) {
         self.canBeManaged = canBeManaged
         self.canEnableVideo = canEnableVideo
+        self.canSendMessages = canSendMessages
+        self.canToggleCanSendMessages = canToggleCanSendMessages
         self.canToggleMuteNewParticipants = canToggleMuteNewParticipants
         self.duration = duration
         self.enabledStartNotification = enabledStartNotification

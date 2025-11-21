@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
@@ -28,7 +28,7 @@ public struct Story: Codable, Equatable, Hashable, Identifiable {
     /// True, if the story can be edited
     public let canBeEdited: Bool
 
-    /// True, if the story can be forwarded as a message. Otherwise, screenshots and saving of the story content must be also forbidden
+    /// True, if the story can be forwarded as a message or reposted as a story. Otherwise, screenshotting and saving of the story content must be also forbidden
     public let canBeForwarded: Bool
 
     /// True, if the story can be replied in the chat with the user that posted the story

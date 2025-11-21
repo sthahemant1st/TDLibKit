@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
@@ -88,6 +88,9 @@ public struct User: Codable, Equatable, Hashable, Identifiable {
     /// Type of the user
     public let type: UserType
 
+    /// Color scheme based on an upgraded gift to be used for the user instead of accent_color_id and background_custom_emoji_id; may be null if none
+    public let upgradedGiftColors: UpgradedGiftColors?
+
     /// Usernames of the user; may be null
     public let usernames: Usernames?
 
@@ -121,6 +124,7 @@ public struct User: Codable, Equatable, Hashable, Identifiable {
         restrictsNewChats: Bool,
         status: UserStatus,
         type: UserType,
+        upgradedGiftColors: UpgradedGiftColors?,
         usernames: Usernames?,
         verificationStatus: VerificationStatus?
     ) {
@@ -149,6 +153,7 @@ public struct User: Codable, Equatable, Hashable, Identifiable {
         self.restrictsNewChats = restrictsNewChats
         self.status = status
         self.type = type
+        self.upgradedGiftColors = upgradedGiftColors
         self.usernames = usernames
         self.verificationStatus = verificationStatus
     }

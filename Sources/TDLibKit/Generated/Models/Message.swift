@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
@@ -79,9 +79,6 @@ public struct Message: Codable, Equatable, Hashable, Identifiable {
     /// Unique identifier of an album this message belongs to; 0 if none. Only audios, documents, photos and videos can be grouped together in albums
     public let mediaAlbumId: TdInt64
 
-    /// If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs
-    public let messageThreadId: Int64
-
     /// The number of Telegram Stars the sender paid to send the message
     public let paidMessageStarCount: Int64
 
@@ -151,7 +148,6 @@ public struct Message: Codable, Equatable, Hashable, Identifiable {
         isPaidTonSuggestedPost: Bool,
         isPinned: Bool,
         mediaAlbumId: TdInt64,
-        messageThreadId: Int64,
         paidMessageStarCount: Int64,
         replyMarkup: ReplyMarkup?,
         replyTo: MessageReplyTo?,
@@ -190,7 +186,6 @@ public struct Message: Codable, Equatable, Hashable, Identifiable {
         self.isPaidTonSuggestedPost = isPaidTonSuggestedPost
         self.isPinned = isPinned
         self.mediaAlbumId = mediaAlbumId
-        self.messageThreadId = messageThreadId
         self.paidMessageStarCount = paidMessageStarCount
         self.replyMarkup = replyMarkup
         self.replyTo = replyTo

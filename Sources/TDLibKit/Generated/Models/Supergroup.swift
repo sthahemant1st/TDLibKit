@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.53-bdec6af5
-//  https://github.com/tdlib/td/tree/bdec6af5
+//  Based on TDLib 1.8.56-dd1b761f
+//  https://github.com/tdlib/td/tree/dd1b761f
 //
 
 import Foundation
@@ -61,7 +61,7 @@ public struct Supergroup: Codable, Equatable, Hashable, Identifiable {
     /// True, if the slow mode is enabled in the supergroup
     public let isSlowModeEnabled: Bool
 
-    /// True, if all users directly joining the supergroup need to be approved by supergroup administrators. Always false for channels and supergroups without username, location, or a linked chat
+    /// True, if all users directly joining the supergroup need to be approved by supergroup administrators. May be true only for non-broadcast supergroups with username, location, or a linked chat
     public let joinByRequest: Bool
 
     /// True, if users need to join the supergroup before they can send messages. May be false only for discussion supergroups and channel direct messages groups
